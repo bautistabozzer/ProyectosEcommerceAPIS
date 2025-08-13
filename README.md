@@ -1,36 +1,272 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 E-Commerce System - Frontend
 
-## Getting Started
+Un sistema de e-commerce moderno y responsive construido con **Vite + React + Tailwind CSS**, diseñado para ofrecer una experiencia de usuario excepcional.
 
-First, run the development server:
+## ✨ Características
 
+- 🚀 **Rendimiento optimizado** con Vite
+- 🎨 **Diseño moderno** con Tailwind CSS
+- 📱 **Completamente responsive**
+- 🔐 **Sistema de autenticación** completo
+- 🛍️ **Gestión de carrito** en tiempo real
+- 📦 **Dashboard de productos** para administradores
+- 🖼️ **Subida de imágenes** integrada
+- 💾 **Persistencia de datos** con localStorage
+- ⚡ **Hot Module Replacement** para desarrollo
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+- **React 18** - Biblioteca de UI
+- **Vite** - Build tool y dev server
+- **Tailwind CSS** - Framework de CSS utility-first
+- **PostCSS** - Procesamiento de CSS
+
+### Estado y Routing
+- **React Router DOM** - Enrutamiento de la aplicación
+- **Context API** - Gestión de estado global
+- **Custom Hooks** - Lógica reutilizable
+
+### Utilidades
+- **Axios** - Cliente HTTP
+- **Lucide React** - Iconos modernos
+- **ESLint** - Linting de código
+
+## 🚀 Instalación y Ejecución
+
+### Prerrequisitos
+- Node.js 18+ 
+- npm 9+
+
+### 1. Clonar el repositorio
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/bautistabozzer/ProyectosEcommerceAPIS.git
+cd ProyectosEcommerceAPIS
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalar dependencias
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Ejecutar en modo desarrollo
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+La aplicación estará disponible en: **http://localhost:3000**
 
-## Learn More
+### 4. Build de producción
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 5. Preview del build
+```bash
+npm run preview
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Estructura del Proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+my-app/
+├── src/
+│   ├── components/          # Componentes reutilizables
+│   │   ├── CartSummary.jsx
+│   │   ├── CategoryPill.jsx
+│   │   ├── EmptyState.jsx
+│   │   ├── ErrorBoundary.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── ImageUploader.jsx
+│   │   ├── Layout.jsx
+│   │   ├── LoadingSpinner.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── QuantitySelector.jsx
+│   │   └── SkeletonLoader.jsx
+│   ├── context/             # Contextos de React
+│   │   ├── AuthContext.jsx
+│   │   ├── CartContext.jsx
+│   │   └── ToastContext.jsx
+│   ├── hooks/               # Custom hooks
+│   │   ├── useFetch.js
+│   │   ├── useLocalStorage.js
+│   │   └── useSessionStorage.js
+│   ├── pages/               # Páginas de la aplicación
+│   │   ├── Cart.jsx
+│   │   ├── DashboardProducts.jsx
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── ProductDetail.jsx
+│   │   ├── ProductForm.jsx
+│   │   └── Register.jsx
+│   ├── reducers/            # Reducers para estado
+│   │   ├── authReducer.js
+│   │   └── cartReducer.js
+│   ├── services/            # Servicios y APIs
+│   │   └── api.js
+│   ├── mocks/               # Datos mock para desarrollo
+│   │   └── db.js
+│   ├── styles/              # Estilos globales
+│   │   └── global.css
+│   ├── utils/               # Utilidades y helpers
+│   │   ├── accessibility.js
+│   │   ├── formatters.js
+│   │   └── validators.js
+│   ├── constants/           # Constantes centralizadas
+│   │   └── index.js
+│   ├── App.jsx              # Componente principal
+│   ├── main.jsx             # Punto de entrada
+│   └── router.jsx           # Configuración de rutas
+├── public/                  # Assets estáticos
+├── dist/                    # Build de producción
+├── vite.config.js           # Configuración de Vite
+├── tailwind.config.js       # Configuración de Tailwind
+├── postcss.config.cjs       # Configuración de PostCSS
+└── package.json             # Dependencias y scripts
+```
 
-## Deploy on Vercel
+## 🔐 Funcionalidades
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Autenticación
+- **Registro de usuarios** con validación
+- **Inicio de sesión** seguro
+- **Persistencia de sesión** con sessionStorage
+- **Protección de rutas** para usuarios autenticados
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Gestión de Productos
+- **Catálogo de productos** con filtros
+- **Búsqueda por nombre** y categoría
+- **Detalles de producto** completos
+- **Gestión de stock** en tiempo real
+
+### Carrito de Compras
+- **Agregar/eliminar productos**
+- **Modificar cantidades**
+- **Persistencia del carrito**
+- **Resumen de compra**
+
+### Panel de Administración
+- **Dashboard de productos**
+- **Crear nuevos productos**
+- **Editar productos existentes**
+- **Subida de imágenes**
+
+## 🎨 Componentes Principales
+
+### Layout y Navegación
+- **Header**: Navegación principal y estado de autenticación
+- **Footer**: Enlaces y información de la aplicación
+- **Layout**: Estructura base de las páginas
+- **ProtectedRoute**: Protección de rutas privadas
+
+### Productos
+- **ProductCard**: Tarjeta de producto con información básica
+- **ProductDetail**: Vista detallada del producto
+- **ProductForm**: Formulario para crear/editar productos
+- **CategoryPill**: Etiqueta de categoría
+
+### Carrito
+- **CartSummary**: Resumen del carrito
+- **QuantitySelector**: Selector de cantidad
+- **Cart**: Página principal del carrito
+
+### Utilidades
+- **LoadingSpinner**: Indicador de carga
+- **SkeletonLoader**: Placeholder durante la carga
+- **ErrorBoundary**: Manejo de errores
+- **ImageUploader**: Subida de imágenes
+
+## 🚀 Scripts Disponibles
+
+```json
+{
+  "dev": "vite",                    // Servidor de desarrollo
+  "build": "vite build",            // Build de producción
+  "preview": "vite preview",        // Preview del build
+  "lint": "eslint ."               // Linting del código
+}
+```
+
+## 🔧 Configuración
+
+### Vite
+- **Puerto**: 3000
+- **HMR**: Habilitado
+- **Build**: Optimizado para producción
+
+### Tailwind CSS
+- **Colores personalizados** para branding
+- **Componentes utilitarios** predefinidos
+- **Responsive design** integrado
+
+### PostCSS
+- **Autoprefixer** para compatibilidad
+- **Tailwind CSS** processing
+- **Optimización** de CSS
+
+## 📱 Responsive Design
+
+La aplicación está completamente optimizada para:
+- 📱 **Mobile First** (320px+)
+- 📱 **Tablets** (768px+)
+- 💻 **Desktop** (1024px+)
+- 🖥️ **Large Screens** (1440px+)
+
+## 🧪 Datos de Prueba
+
+### Usuarios por defecto
+- **Admin**: `admin@test.com` / `admin123`
+- **Usuario**: `user1@test.com` / `user123`
+
+### Categorías disponibles
+- Electrónicos
+- Ropa
+- Hogar
+- Deportes
+- Libros
+
+## 🚀 Deploy
+
+### Build de Producción
+```bash
+npm run build
+```
+
+### Servir archivos estáticos
+Los archivos en `dist/` están listos para ser servidos por cualquier servidor web estático.
+
+### Plataformas recomendadas
+- **Vercel**: Deploy automático desde GitHub
+- **Netlify**: Drag & drop de la carpeta dist/
+- **GitHub Pages**: Deploy desde branch gh-pages
+- **Firebase Hosting**: Deploy con Firebase CLI
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👨‍💻 Autor
+
+**Bautista Bozzer**
+- GitHub: [@bautistabozzer](https://github.com/bautistabozzer)
+
+## 🙏 Agradecimientos
+
+- **Vite** por el build tool increíblemente rápido
+- **Tailwind CSS** por el framework de CSS utility-first
+- **React** por la biblioteca de UI declarativa
+- **Lucide** por los iconos modernos y hermosos
+
+---
+
+⭐ **¡Si te gusta este proyecto, dale una estrella en GitHub!**
