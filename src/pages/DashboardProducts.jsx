@@ -40,10 +40,10 @@ const DashboardProducts = () => {
     return (
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Mis Productos</h1>
-            <p className="text-gray-600 mt-1">Gestiona tu inventario de productos</p>
-          </div>
+                  <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Mis Productos</h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">Gestiona tu inventario de productos</p>
+        </div>
           <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -76,8 +76,8 @@ const DashboardProducts = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Mis Productos</h1>
-          <p className="text-gray-600 mt-1">Gestiona tu inventario de productos</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Mis Productos</h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">Gestiona tu inventario de productos</p>
         </div>
         <Link to="/dashboard/products/new" className="btn btn-primary inline-flex items-center gap-2">
           <Plus size={18} />
@@ -100,7 +100,7 @@ const DashboardProducts = () => {
           />
         </div>
         {/* Stats */}
-        <div className="flex items-center gap-4 text-sm text-gray-600">
+        <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
           <span>Total: {userProducts.length} productos</span>
           <span>En stock: {userProducts.filter((p) => p.stock > 0).length}</span>
           <span>Sin stock: {userProducts.filter((p) => p.stock === 0).length}</span>
@@ -152,28 +152,28 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-              <p className="text-sm text-gray-600 mt-1 line-clamp-2">{product.description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{product.name}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">{product.description}</p>
               <div className="flex items-center gap-4 mt-2">
-                <span className="text-lg font-bold text-blue-600">{formatPrice(product.price)}</span>
-                <span className={`text-sm font-medium ${isOutOfStock ? "text-red-600" : "text-green-600"}`}>
+                <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{formatPrice(product.price)}</span>
+                <span className={`text-sm font-medium ${isOutOfStock ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}`}>
                   {isOutOfStock ? "Sin stock" : `${product.stock} en stock`}
                 </span>
-                <span className="text-sm text-gray-500">Creado: {formatDate(product.createdAt)}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">Creado: {formatDate(product.createdAt)}</span>
               </div>
             </div>
             {/* Actions */}
             <div className="flex items-center space-x-2">
               <Link
                 to={`/product/${product.id}`}
-                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors"
                 title="Ver producto"
               >
                 <Eye size={18} />
               </Link>
               <Link
                 to={`/dashboard/products/${product.id}/edit`}
-                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors"
                 title="Editar producto"
               >
                 <Edit size={18} />
@@ -181,7 +181,7 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
               <button
                 onClick={() => onDelete(product.id, product.name)}
                 disabled={isDeleting}
-                className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors disabled:opacity-50"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors disabled:opacity-50"
                 title="Eliminar producto"
               >
                 {isDeleting ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
@@ -192,8 +192,8 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
       </div>
       {/* Stock Warning */}
       {product.stock <= 5 && product.stock > 0 && (
-        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
-          <p className="text-sm text-yellow-800">⚠️ Stock bajo: Solo quedan {product.stock} unidades</p>
+        <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-md">
+          <p className="text-sm text-yellow-800 dark:text-yellow-200">⚠️ Stock bajo: Solo quedan {product.stock} unidades</p>
         </div>
       )}
     </div>

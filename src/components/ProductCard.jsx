@@ -18,10 +18,10 @@ const ProductCard = ({ product }) => {
   }
   const isOutOfStock = product.stock === 0
   return (
-    <div className="card overflow-hidden hover:shadow-lg transition-shadow duration-200">
+    <div className="card overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
       <Link to={`/product/${product.id}`} className="block">
         {/* Product Image */}
-        <div className="relative aspect-square bg-gray-100">
+        <div className="relative aspect-square bg-gray-100 dark:bg-gray-700">
           <img
             src={product.images?.[0] || "/placeholder.svg?height=300&width=300"}
             alt={product.name}
@@ -35,18 +35,18 @@ const ProductCard = ({ product }) => {
           )}
           {/* Quick view button */}
           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50">
-              <Eye size={16} className="text-gray-600" />
+            <button className="p-2 bg-white dark:bg-gray-600 rounded-full shadow-md hover:bg-gray-50 dark:hover:bg-gray-500">
+              <Eye size={16} className="text-gray-600 dark:text-gray-300" />
             </button>
           </div>
         </div>
         {/* Product Info */}
         <div className="p-4">
-          <h3 className="font-semibold text-gray-900 mb-1 line-clamp-2">{product.name}</h3>
-          <p className="text-sm text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-1 line-clamp-2">{product.name}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">{product.description}</p>
           <div className="flex items-center justify-between mb-3">
-            <span className="text-lg font-bold text-blue-600">{formatPrice(product.price)}</span>
-            <span className={`text-sm ${isOutOfStock ? "text-red-600" : "text-green-600"}`}>
+            <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{formatPrice(product.price)}</span>
+            <span className={`text-sm ${isOutOfStock ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}`}>
               {isOutOfStock ? "Sin stock" : `${product.stock} disponibles`}
             </span>
           </div>
@@ -59,8 +59,8 @@ const ProductCard = ({ product }) => {
           disabled={isOutOfStock}
           className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md font-medium transition-colors ${
             isOutOfStock
-              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-              : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              ? "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+              : "bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
           }`}
         >
           <ShoppingCart size={16} />

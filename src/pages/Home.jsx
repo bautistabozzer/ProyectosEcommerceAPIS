@@ -45,8 +45,8 @@ const Home = () => {
     return (
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Catálogo de Productos</h1>
-          <p className="text-gray-600">Descubre nuestros productos organizados por categorías</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Catálogo de Productos</h1>
+          <p className="text-gray-600 dark:text-gray-300">Descubre nuestros productos organizados por categorías</p>
         </div>
         <div className="relative max-w-md">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -93,8 +93,8 @@ const Home = () => {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Catálogo de Productos</h1>
-        <p className="text-gray-600">Descubre nuestros productos organizados por categorías</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Catálogo de Productos</h1>
+        <p className="text-gray-600 dark:text-gray-300">Descubre nuestros productos organizados por categorías</p>
       </div>
       {/* Search Bar */}
       <div className="relative max-w-md">
@@ -113,19 +113,21 @@ const Home = () => {
         {/* Categories Sidebar */}
         <div className="lg:col-span-1">
           <div className="card p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Categorías</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Categorías</h2>
             {categoriesLoading ? (
               <div className="flex justify-center py-4">
                 <LoadingSpinner size="sm" />
               </div>
             ) : categoriesError ? (
-              <p className="text-red-600 text-sm">Error al cargar categorías</p>
+              <p className="text-red-600 dark:text-red-400 text-sm">Error al cargar categorías</p>
             ) : (
               <div className="space-y-2">
                 <button
                   onClick={clearFilters}
                   className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                    !selectedCategory ? "bg-blue-100 text-blue-800 font-medium" : "text-gray-700 hover:bg-gray-100"
+                    !selectedCategory 
+                      ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium" 
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }`}
                 >
                   Todas las categorías
@@ -142,29 +144,29 @@ const Home = () => {
             )}
             {/* Active filters */}
             {(searchTerm || selectedCategory) && (
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <h3 className="text-sm font-medium text-gray-900 mb-2">Filtros activos:</h3>
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Filtros activos:</h3>
                 <div className="space-y-1">
                   {searchTerm && (
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">Búsqueda: "{searchTerm}"</span>
-                      <button onClick={() => setSearchTerm("")} className="text-red-600 hover:text-red-800">
+                      <span className="text-gray-600 dark:text-gray-300">Búsqueda: "{searchTerm}"</span>
+                      <button onClick={() => setSearchTerm("")} className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300">
                         ×
                       </button>
                     </div>
                   )}
                   {selectedCategory && (
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">
+                      <span className="text-gray-600 dark:text-gray-300">
                         Categoría: {categories?.find((c) => c.id === selectedCategory)?.name}
                       </span>
-                      <button onClick={() => setSelectedCategory(null)} className="text-red-600 hover:text-red-800">
+                      <button onClick={() => setSelectedCategory(null)} className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300">
                         ×
                       </button>
                     </div>
                   )}
                 </div>
-                <button onClick={clearFilters} className="mt-2 text-sm text-blue-600 hover:text-blue-800">
+                <button onClick={clearFilters} className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                   Limpiar todos los filtros
                 </button>
               </div>
@@ -198,7 +200,7 @@ const Home = () => {
             <>
               {/* Results count */}
               <div className="mb-6">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   {filteredProducts?.length} producto{filteredProducts?.length !== 1 ? "s" : ""} encontrado
                   {filteredProducts?.length !== 1 ? "s" : ""}
                   {searchTerm && ` para "${searchTerm}"`}

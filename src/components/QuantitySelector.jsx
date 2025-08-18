@@ -29,11 +29,11 @@ const QuantitySelector = ({ quantity = 1, min = 1, max = 99, onChange, disabled 
     lg: "p-3",
   }
   return (
-    <div className={`flex items-center border border-gray-300 rounded-md ${disabled ? "opacity-50" : ""}`}>
+    <div className={`flex items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 ${disabled ? "opacity-50" : ""}`}>
       <button
         onClick={handleDecrease}
         disabled={disabled || value <= min}
-        className={`${buttonSizeClasses[size]} hover:bg-gray-100 transition-colors disabled:cursor-not-allowed disabled:hover:bg-transparent`}
+        className={`${buttonSizeClasses[size]} hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:cursor-not-allowed disabled:hover:bg-transparent text-gray-700 dark:text-white`}
         aria-label="Disminuir cantidad"
       >
         <Minus size={size === "sm" ? 14 : size === "lg" ? 20 : 16} />
@@ -45,12 +45,12 @@ const QuantitySelector = ({ quantity = 1, min = 1, max = 99, onChange, disabled 
         disabled={disabled}
         min={min}
         max={max}
-        className={`${sizeClasses[size]} text-center border-0 focus:outline-none focus:ring-0 w-16 disabled:bg-transparent`}
+        className={`${sizeClasses[size]} text-center border-0 focus:outline-none focus:ring-0 w-16 disabled:bg-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
       />
       <button
         onClick={handleIncrease}
         disabled={disabled || value >= max}
-        className={`${buttonSizeClasses[size]} hover:bg-gray-100 transition-colors disabled:cursor-not-allowed disabled:hover:bg-transparent`}
+        className={`${buttonSizeClasses[size]} hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:cursor-not-allowed disabled:hover:bg-transparent text-gray-700 dark:text-white`}
         aria-label="Aumentar cantidad"
       >
         <Plus size={size === "sm" ? 14 : size === "lg" ? 20 : 16} />

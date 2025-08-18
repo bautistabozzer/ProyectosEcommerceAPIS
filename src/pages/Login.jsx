@@ -56,13 +56,13 @@ const Login = () => {
     }
   }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Iniciar Sesión</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">Iniciar Sesión</h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
             ¿No tienes cuenta?{" "}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link to="/register" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
               Regístrate aquí
             </Link>
           </p>
@@ -71,7 +71,7 @@ const Login = () => {
           <div className="space-y-4">
             {/* Email field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email
               </label>
               <div className="mt-1 relative">
@@ -90,11 +90,11 @@ const Login = () => {
                   onChange={handleChange}
                 />
               </div>
-              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+              {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
             </div>
             {/* Password field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Contraseña
               </label>
               <div className="mt-1 relative">
@@ -124,7 +124,7 @@ const Login = () => {
                   )}
                 </button>
               </div>
-              {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+              {errors.password && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>}
             </div>
           </div>
           <div>
@@ -144,9 +144,9 @@ const Login = () => {
             </button>
           </div>
           {/* Demo credentials */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-md">
-            <h3 className="text-sm font-medium text-blue-800 mb-2">Credenciales de prueba:</h3>
-            <div className="text-sm text-blue-700 space-y-1">
+          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-md">
+            <h3 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">Credenciales de prueba:</h3>
+            <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
               <p>
                 <strong>Admin:</strong> admin@test.com / admin123
               </p>
