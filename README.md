@@ -221,6 +221,7 @@ La aplicación está completamente optimizada para:
 - **Usuario**: `user1@test.com` / `user123`
 
 ### Categorías disponibles
+
 - Electrónicos
 - Ropa
 - Hogar

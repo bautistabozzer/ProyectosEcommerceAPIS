@@ -5,40 +5,25 @@
 :root {
   --primary: #2563eb;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
   --background: #ffffff;
   --foreground: #0f172a;
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
   --border: #e2e8f0;
   --input: #e2e8f0;
   --ring: #2563eb;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --radius: 0.5rem;
 }
 
 .dark {
   --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f1f5f9;
   --background: #0f172a;
   --foreground: #ffffff;
-  --muted: #1e293b;
-  --muted-foreground: #cbd5e1;
   --border: #334155;
   --input: #334155;
   --ring: #3b82f6;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  
-  /* Nuevas variables para diferenciación */
-  --header-bg: #1f2937;
-  --footer-bg: #1f2937;
-  --header-border: #4b5563;
-  --footer-border: #4b5563;
 }
 
 * {
@@ -128,7 +113,7 @@ body {
   opacity: 0;
 }
 
-/* Added improved animations and focus styles */
+/* Improved animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -140,23 +125,8 @@ body {
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out;
-}
-
-.animate-slide-in {
-  animation: slideIn 0.3s ease-out;
 }
 
 /* Improved focus styles for accessibility */
@@ -165,17 +135,12 @@ body {
   outline-offset: 2px;
 }
 
-/* Better button hover states */
+/* Button and card hover effects */
 .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.btn:active {
-  transform: translateY(0);
-}
-
-/* Card hover effects */
 .card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
