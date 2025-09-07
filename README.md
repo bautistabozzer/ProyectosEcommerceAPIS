@@ -308,11 +308,6 @@ Los archivos en `dist/` están listos para ser servidos por cualquier servidor w
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
-## 👨‍💻 Autor
-
-**Bautista Bozzer**
-- GitHub: [@bautistabozzer](https://github.com/bautistabozzer)
-
 ## 🙏 Agradecimientos
 
 - **Vite** por el build tool increíblemente rápido
