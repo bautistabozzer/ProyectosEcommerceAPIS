@@ -9,10 +9,10 @@ Un sistema de e-commerce moderno y responsive construido con **Vite + React + Ta
 - 📱 **Completamente responsive**
 - 🔐 **Sistema de autenticación** completo con persistencia
 - 🛍️ **Gestión de carrito** en tiempo real
-- 📦 **Dashboard de productos** para administradores
+- 📦 **Dashboard de productos** para administradores con paginación
 - 🖼️ **Subida de imágenes** integrada
-- 💾 **Persistencia de datos** con localStorage y sessionStorage
-- 🔄 **Paginación** y controles de vista
+- 💾 **Persistencia de datos** con localStorage, sessionStorage y JSON Server
+- 🔄 **Paginación avanzada** y controles de vista
 - 🎠 **Carrusel de productos** destacados
 - 🔗 **Productos relacionados** en detalle
 - ⚡ **Hot Module Replacement** para desarrollo
@@ -31,9 +31,10 @@ Un sistema de e-commerce moderno y responsive construido con **Vite + React + Ta
 - **Custom Hooks** - Lógica reutilizable
 
 ### Utilidades
-- **Axios** - Cliente HTTP
+- **Fetch API** - Cliente HTTP nativo
 - **Lucide React** - Iconos modernos
 - **ESLint** - Linting de código
+- **JSON Server** - Backend simulado para desarrollo
 
 ## 🚀 Instalación y Ejecución
 
@@ -100,6 +101,7 @@ my-app/
 │   │   │   ├── PrivacyModal.jsx
 │   │   │   └── TermsModal.jsx
 │   │   ├── ProductCard.jsx
+│   │   ├── Pagination.jsx
 │   │   ├── ProductCarousel.jsx
 │   │   ├── ProductListItem.jsx
 │   │   ├── ProtectedRoute.jsx
@@ -172,11 +174,13 @@ my-app/
 - **Resumen de compra**
 
 ### Panel de Administración
-- **Dashboard de productos** con gestión completa
+- **Dashboard de productos** con gestión completa y paginación
 - **Crear nuevos productos** con formulario avanzado
 - **Editar productos existentes** con pre-carga de datos
 - **Subida de imágenes** con preview
 - **Gestión de categorías** integrada
+- **Paginación inteligente** con navegación por elipsis
+- **Selector de elementos** por página (3, 6, 9, 12, 18, 24)
 
 ### Interfaz de Usuario
 - **Modo oscuro/claro** con persistencia
@@ -215,6 +219,7 @@ my-app/
 - **ThemeToggle**: Toggle para modo oscuro/claro
 - **Modal**: Sistema de modales reutilizable
 - **Toast**: Sistema de notificaciones
+- **Pagination**: Componente de paginación reutilizable
 
 ## 🚀 Scripts Disponibles
 
@@ -275,10 +280,10 @@ La aplicación está completamente optimizada para:
 - Libros
 
 ### Productos
-- **110 productos** en total
-- **100 productos** del catálogo externo
-- **10 productos** de prueba originales
+- **100+ productos** en total
+- **Productos del catálogo** con datos reales
 - **Imágenes** y descripciones completas
+- **Categorías** organizadas (Electrónicos, Ropa, Hogar, Deportes, Libros)
 
 ## 🚀 Deploy
 
@@ -307,11 +312,6 @@ Los archivos en `dist/` están listos para ser servidos por cualquier servidor w
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 👨‍💻 Autor
-
-**Bautista Bozzer**
-- GitHub: [@bautistabozzer](https://github.com/bautistabozzer)
 
 ## 🙏 Agradecimientos
 

@@ -56,12 +56,18 @@ JSON Server crea automáticamente los siguientes endpoints:
 ### Usuarios
 - `GET /users?email=admin@test.com` - Buscar por email
 
+### Paginación
+- `GET /products?_page=1&_limit=10` - Paginación de productos
+- `GET /products?_start=0&_end=9` - Rango de productos
+- `GET /products?_sort=name&_order=asc` - Ordenamiento
+
 ## Datos Iniciales
 
 El archivo `db.json` contiene datos iniciales:
-- 2 usuarios de prueba (admin@test.com / admin123, user1@test.com / user123)
+- 3 usuarios de prueba (admin@test.com / admin123, user1@test.com / user123, test@test.com / test123)
 - 5 categorías (Electrónicos, Ropa, Hogar, Deportes, Libros)
-- 10 productos de ejemplo
+- 100+ productos de ejemplo con datos reales
+- Imágenes y descripciones completas
 
 ## Ventajas de JSON Server
 
@@ -71,6 +77,8 @@ El archivo `db.json` contiene datos iniciales:
 4. **Paginación**: Soporte para paginación
 5. **Relaciones**: Manejo de relaciones entre entidades
 6. **Desarrollo**: Ideal para desarrollo y testing
+7. **Simplicidad**: No requiere configuración de base de datos
+8. **Flexibilidad**: Fácil modificación de datos para testing
 
 ## Solución de Problemas
 
