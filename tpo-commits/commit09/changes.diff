@@ -1,0 +1,291 @@
+--- /dev/null
++++ b/src/components/Pagination.jsx
+@@ -0,0 +1,120 @@
++import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
++
++const Pagination = ({ 
++  currentPage, 
++  totalPages, 
++  onPageChange, 
++  showInfo = true,
++  totalItems = 0,
++  itemsPerPage = 10 
++}) => {
++  // Calcular información de elementos mostrados
++  const startItem = totalItems > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0
++  const endItem = Math.min(currentPage * itemsPerPage, totalItems)
++
++  // Generar números de página a mostrar
++  const getPageNumbers = () => {
++    const pages = []
++    const maxVisiblePages = 5
++
++    if (totalPages <= maxVisiblePages) {
++      // Mostrar todas las páginas si son pocas
++      for (let i = 1; i <= totalPages; i++) {
++        pages.push(i)
++      }
++    } else {
++      // Lógica para mostrar páginas con elipsis
++      if (currentPage <= 3) {
++        // Páginas iniciales
++        for (let i = 1; i <= 4; i++) {
++          pages.push(i)
++        }
++        pages.push('ellipsis')
++        pages.push(totalPages)
++      } else if (currentPage >= totalPages - 2) {
++        // Páginas finales
++        pages.push(1)
++        pages.push('ellipsis')
++        for (let i = totalPages - 3; i <= totalPages; i++) {
++          pages.push(i)
++        }
++      } else {
++        // Páginas del medio
++        pages.push(1)
++        pages.push('ellipsis')
++        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
++          pages.push(i)
++        }
++        pages.push('ellipsis')
++        pages.push(totalPages)
++      }
++    }
++
++    return pages
++  }
++
++  const pageNumbers = getPageNumbers()
++
++  if (totalPages <= 1) {
++    return null
++  }
++
++  return (
++    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
++      {/* Información de elementos */}
++      {showInfo && totalItems > 0 && (
++        <div className="text-sm text-gray-600 dark:text-gray-300">
++          Mostrando {startItem} - {endItem} de {totalItems} productos
++        </div>
++      )}
++
++      {/* Controles de paginación */}
++      <div className="flex items-center space-x-1">
++        {/* Botón Anterior */}
++        <button
++          onClick={() => onPageChange(currentPage - 1)}
++          disabled={currentPage === 1}
++          className="p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
++          title="Página anterior"
++        >
++          <ChevronLeft size={18} />
++        </button>
++
++        {/* Números de página */}
++        <div className="flex items-center space-x-1">
++          {pageNumbers.map((page, index) => {
++            if (page === 'ellipsis') {
++              return (
++                <span
++                  key={`ellipsis-${index}`}
++                  className="px-3 py-2 text-gray-500 dark:text-gray-400"
++                >
++                  <MoreHorizontal size={16} />
++                </span>
++              )
++            }
++
++            const isCurrentPage = page === currentPage
++            return (
++              <button
++                key={page}
++                onClick={() => onPageChange(page)}
++                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
++                  isCurrentPage
++                    ? 'bg-blue-600 text-white border border-blue-600'
++                    : 'border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
++                }`}
++              >
++                {page}
++              </button>
++            )
++          })}
++        </div>
++
++        {/* Botón Siguiente */}
++        <button
++          onClick={() => onPageChange(currentPage + 1)}
++          disabled={currentPage === totalPages}
++          className="p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
++          title="Página siguiente"
++        >
++          <ChevronRight size={18} />
++        </button>
++      </div>
++    </div>
++  )
++}
++
++export default Pagination
++
+--- a/src/pages/DashboardProducts.jsx
++++ b/src/pages/DashboardProducts.jsx
+@@ -1,4 +1,4 @@
+-import { useState } from "react"
++import { useState, useEffect } from "react"
+ import { Link } from "react-router-dom"
+ import { useAuth } from "../context/AuthContext"
+ import { useToast } from "../context/ToastContext"
+@@ -8,6 +8,7 @@ import LoadingSpinner from "../components/LoadingSpinner"
+ import EmptyState from "../components/EmptyState"
+ import SkeletonLoader from "../components/SkeletonLoader"
++import Pagination from "../components/Pagination"
+ import { Plus, Edit, Trash2, Package, Eye, Search } from "lucide-react"
+ const DashboardProducts = () => {
+   const { user } = useAuth()
+@@ -15,6 +16,12 @@ const DashboardProducts = () => {
+   const [searchTerm, setSearchTerm] = useState("")
+   const [isDeleting, setIsDeleting] = useState(null)
++  const [currentPage, setCurrentPage] = useState(1)
++  const [itemsPerPage, setItemsPerPage] = useState(() => {
++    const saved = localStorage.getItem('dashboardProductsPerPage')
++    return saved ? Number(saved) : 6
++  })
+   const { data: allProducts, loading, error: fetchError, refetch } = useFetch(() => api.getProducts(), [])
+   
+   // Debug logging
+@@ -40,6 +47,30 @@ const DashboardProducts = () => {
+   const filteredProducts = userProducts.filter((product) =>
+     product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+   )
++
++  // Pagination logic
++  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
++  const startIndex = (currentPage - 1) * itemsPerPage
++  const endIndex = startIndex + itemsPerPage
++  const paginatedProducts = filteredProducts.slice(startIndex, endIndex)
++
++  // Reset to first page when search term changes
++  useEffect(() => {
++    setCurrentPage(1)
++  }, [searchTerm])
++
++  // Save items per page preference
++  useEffect(() => {
++    localStorage.setItem('dashboardProductsPerPage', itemsPerPage.toString())
++  }, [itemsPerPage])
++
++  // Handle page change
++  const handlePageChange = (page) => {
++    setCurrentPage(page)
++    // Scroll to top when changing pages
++    window.scrollTo({ top: 0, behavior: 'smooth' })
++  }
++
++  // Handle items per page change
++  const handleItemsPerPageChange = (newItemsPerPage) => {
++    setItemsPerPage(newItemsPerPage)
++    setCurrentPage(1) // Reset to first page
++  }
+   const handleDelete = async (productId, productName) => {
+     if (!window.confirm(`¿Estás seguro de que quieres eliminar "${productName}"?`)) {
+       return
+@@ -115,6 +146,12 @@ const DashboardProducts = () => {
+           <span>Total: {userProducts.length} productos</span>
+           <span>En stock: {userProducts.filter((p) => p.stock > 0).length}</span>
+           <span>Sin stock: {userProducts.filter((p) => p.stock === 0).length}</span>
++          {searchTerm && (
++            <span className="text-blue-600 dark:text-blue-400">
++              Filtrados: {filteredProducts.length}
++            </span>
++          )}
+         </div>
+       </div>
++      {/* Items per page selector */}
++      {filteredProducts.length > 0 && (
++        <div className="flex items-center justify-between mb-4">
++          <div className="flex items-center space-x-2">
++            <label htmlFor="items-per-page" className="text-sm font-medium text-gray-700 dark:text-gray-300">
++              Mostrar:
++            </label>
++            <select
++              id="items-per-page"
++              value={itemsPerPage}
++              onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
++              className="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
++            >
++              {[3, 6, 9, 12, 18, 24].map((option) => (
++                <option key={option} value={option}>
++                  {option} por página
++                </option>
++              ))}
++            </select>
++          </div>
++        </div>
++      )}
+       {/* Products List */}
+       {filteredProducts.length === 0 ? (
+         <EmptyState
+@@ -130,7 +167,7 @@ const DashboardProducts = () => {
+         />
+       ) : (
+-        <div className="space-y-4">
+-          {filteredProducts.map((product) => (
++        <>
++          <div className="space-y-4">
++            {paginatedProducts.map((product) => (
+               <ProductRow
+                 key={product.id}
+                 product={product}
+@@ -138,7 +175,15 @@ const DashboardProducts = () => {
+                 isDeleting={isDeleting === product.id}
+               />
+             ))}
+-        </div>
++          </div>
++          
++          {/* Pagination */}
++          <Pagination
++            currentPage={currentPage}
++            totalPages={totalPages}
++            onPageChange={handlePageChange}
++            totalItems={filteredProducts.length}
++            itemsPerPage={itemsPerPage}
++          />
++        </>
+       )}
+     </div>
+   )
+--- a/src/utils/formatters.js
++++ b/src/utils/formatters.js
+@@ -7,7 +7,18 @@ export const formatPrice = (price) => {
+   }).format(price)
+ }
+ export const formatDate = (dateString) => {
+-  return new Intl.DateTimeFormat("es-ES", {
+-    year: "numeric",
+-    month: "long",
+-    day: "numeric",
+-  }).format(new Date(dateString))
++  // Validar que dateString existe y no es null/undefined
++  if (!dateString) {
++    return "Fecha no disponible"
++  }
++  
++  // Intentar crear la fecha
++  const date = new Date(dateString)
++  
++  // Verificar si la fecha es válida
++  if (isNaN(date.getTime())) {
++    return "Fecha inválida"
++  }
++  
++  return new Intl.DateTimeFormat("es-ES", {
++    year: "numeric",
++    month: "long",
++    day: "numeric",
++  }).format(date)
+ }
+ export const truncateText = (text, maxLength = 100) => {

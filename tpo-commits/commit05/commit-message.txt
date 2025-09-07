@@ -1,0 +1,9 @@
+feat(components): componentes base
+
+- Componentes de UI reutilizables
+- Sistema de layout y navegación
+- Componentes de productos y carrito
+- Componentes de carga y estados vacíos
+- Componentes de formularios y controles
+- Sistema de modales y notificaciones
+

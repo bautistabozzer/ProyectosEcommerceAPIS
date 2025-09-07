@@ -1,0 +1,10 @@
+feat(pagination): paginación en dashboard de productos
+
+- Componente Pagination reutilizable con navegación completa
+- Paginación inteligente en DashboardProducts
+- Selector de elementos por página con persistencia
+- Navegación con elipsis para páginas intermedias
+- Scroll automático y reset inteligente de páginas
+- Validación robusta de fechas en formatters
+- Diseño responsive para móviles y desktop
+- Mejora significativa en UX para inventarios grandes

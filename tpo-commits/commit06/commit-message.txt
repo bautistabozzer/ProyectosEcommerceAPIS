@@ -1,0 +1,9 @@
+feat(auth): autenticación y rutas protegidas
+
+- Páginas de login y registro de usuarios
+- Componente de ruta protegida
+- Integración con contexto de autenticación
+- Validación de formularios
+- Manejo de errores de autenticación
+- Redirección automática según estado de sesión
+

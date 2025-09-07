@@ -1,0 +1,9 @@
+feat(styles): sistema de estilos y tema
+
+- Configuración completa de Tailwind CSS
+- Variables CSS personalizadas para tema claro/oscuro
+- Utilidades de componentes reutilizables
+- Animaciones y transiciones
+- Soporte para accesibilidad y modo de alto contraste
+- Estilos responsivos y optimizados
+

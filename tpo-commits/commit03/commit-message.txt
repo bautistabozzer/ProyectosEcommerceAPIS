@@ -1,0 +1,9 @@
+feat(services): servicios API y utilidades
+
+- Servicio API completo para productos, usuarios y categorías
+- Constantes de errores y configuración
+- Hooks personalizados para manejo de estado
+- Utilidades de formateo y validación
+- Manejo de errores centralizado
+- Integración con JSON Server
+

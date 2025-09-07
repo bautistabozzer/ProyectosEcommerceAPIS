@@ -1,0 +1,9 @@
+feat(context): contextos de estado
+
+- Contexto de autenticación con persistencia
+- Contexto de carrito de compras
+- Contexto de notificaciones toast
+- Reducers para manejo de estado complejo
+- Persistencia en localStorage y sessionStorage
+- Manejo de sesiones y tokens
+

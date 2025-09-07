@@ -1,0 +1,9 @@
+chore(init): configuración base del proyecto
+
+- Configuración inicial de Vite con React
+- Configuración de Tailwind CSS con tema personalizado
+- Configuración de ESLint para React
+- Configuración de PostCSS
+- Estructura base del HTML
+- Dependencias principales del proyecto
+

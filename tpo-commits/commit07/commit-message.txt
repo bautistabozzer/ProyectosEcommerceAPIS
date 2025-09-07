@@ -1,0 +1,9 @@
+feat(catalog): catálogo y productos
+
+- Página principal con catálogo de productos
+- Página de detalle de producto
+- Página de carrito de compras
+- Sistema de búsqueda y filtros
+- Paginación y controles de vista
+- Componentes de productos y carrito
+

@@ -1,0 +1,9 @@
+feat(admin): panel de administración
+
+- Dashboard de administración de productos
+- Formulario de creación y edición de productos
+- Sistema de modales informativos
+- Componentes adicionales de UI
+- Integración completa con routing
+- Aplicación principal y configuración final
+
