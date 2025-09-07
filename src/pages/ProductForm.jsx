@@ -111,7 +111,7 @@ const ProductForm = () => {
         stock: Number.parseInt(formData.stock),
         categoryId: Number.parseInt(formData.categoryId),
         images: formData.images,
-        ownerUserId: user.id,
+        ownerUserId: user.id, // Keep original type (string or number)
       }
       if (isEditing) {
         await api.updateProduct(id, productData)

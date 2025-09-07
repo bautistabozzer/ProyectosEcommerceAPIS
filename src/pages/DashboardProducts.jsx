@@ -15,8 +15,22 @@ const DashboardProducts = () => {
   const [searchTerm, setSearchTerm] = useState("")
   const [isDeleting, setIsDeleting] = useState(null)
   const { data: allProducts, loading, error: fetchError, refetch } = useFetch(() => api.getProducts(), [])
-  // Filter products by current user
-  const userProducts = allProducts?.filter((product) => product.ownerUserId === user?.id) || []
+  
+  // Debug logging
+  console.log('DashboardProducts - Current user:', user)
+  console.log('DashboardProducts - All products:', allProducts)
+  console.log('DashboardProducts - User ID:', user?.id, 'Type:', typeof user?.id)
+  
+  // Filter products by current user (compare as strings to handle both numeric and string IDs)
+  const userProducts = allProducts?.filter((product) => {
+    const productOwnerId = String(product.ownerUserId)
+    const userId = String(user?.id)
+    const matches = productOwnerId === userId && productOwnerId !== 'null' && productOwnerId !== 'undefined'
+    console.log(`Product ${product.id}: ownerUserId=${product.ownerUserId} (${typeof product.ownerUserId}) -> ${productOwnerId}, user.id=${user?.id} (${typeof user?.id}) -> ${userId}, matches=${matches}`)
+    return matches
+  }) || []
+  
+  console.log('DashboardProducts - Filtered user products:', userProducts)
   // Filter by search term
   const filteredProducts = userProducts.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()),

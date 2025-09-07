@@ -1,6 +1,5 @@
 // API Constants
-export const API_DELAY = 500; // milliseconds
-export const STORAGE_KEY = "ecommerce_db";
+export const API_BASE_URL = "http://localhost:3001";
 
 // User Roles
 export const USER_ROLES = {
