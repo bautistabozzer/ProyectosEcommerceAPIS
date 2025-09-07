@@ -5,13 +5,16 @@ Un sistema de e-commerce moderno y responsive construido con **Vite + React + Ta
 ## ✨ Características
 
 - 🚀 **Rendimiento optimizado** con Vite
-- 🎨 **Diseño moderno** con Tailwind CSS
+- 🎨 **Diseño moderno** con Tailwind CSS y modo oscuro
 - 📱 **Completamente responsive**
-- 🔐 **Sistema de autenticación** completo
+- 🔐 **Sistema de autenticación** completo con persistencia
 - 🛍️ **Gestión de carrito** en tiempo real
 - 📦 **Dashboard de productos** para administradores
 - 🖼️ **Subida de imágenes** integrada
-- 💾 **Persistencia de datos** con localStorage
+- 💾 **Persistencia de datos** con localStorage y sessionStorage
+- 🔄 **Paginación** y controles de vista
+- 🎠 **Carrusel de productos** destacados
+- 🔗 **Productos relacionados** en detalle
 - ⚡ **Hot Module Replacement** para desarrollo
 
 ## 🛠️ Stack Tecnológico
@@ -54,14 +57,23 @@ npm install
 npm run dev
 ```
 
-La aplicación estará disponible en: **http://localhost:3000**
+La aplicación estará disponible en: **http://localhost:5173**
 
-### 4. Build de producción
+### 4. Ejecutar con JSON Server (recomendado)
+```bash
+npm start
+```
+
+Esto ejecutará tanto el frontend como el JSON Server:
+- **Frontend**: http://localhost:5173
+- **API**: http://localhost:3001
+
+### 5. Build de producción
 ```bash
 npm run build
 ```
 
-### 5. Preview del build
+### 6. Preview del build
 ```bash
 npm run preview
 ```
@@ -81,18 +93,27 @@ my-app/
 │   │   ├── ImageUploader.jsx
 │   │   ├── Layout.jsx
 │   │   ├── LoadingSpinner.jsx
+│   │   ├── Modal.jsx
+│   │   ├── modals/          # Modales específicos
+│   │   │   ├── AboutUsModal.jsx
+│   │   │   ├── ContactModal.jsx
+│   │   │   ├── PrivacyModal.jsx
+│   │   │   └── TermsModal.jsx
 │   │   ├── ProductCard.jsx
+│   │   ├── ProductCarousel.jsx
+│   │   ├── ProductListItem.jsx
 │   │   ├── ProtectedRoute.jsx
 │   │   ├── QuantitySelector.jsx
-│   │   └── SkeletonLoader.jsx
+│   │   ├── SkeletonLoader.jsx
+│   │   ├── ThemeToggle.jsx
+│   │   └── ViewControls.jsx
 │   ├── context/             # Contextos de React
 │   │   ├── AuthContext.jsx
 │   │   ├── CartContext.jsx
 │   │   └── ToastContext.jsx
 │   ├── hooks/               # Custom hooks
 │   │   ├── useFetch.js
-│   │   ├── useLocalStorage.js
-│   │   └── useSessionStorage.js
+│   │   └── useTheme.js
 │   ├── pages/               # Páginas de la aplicación
 │   │   ├── Cart.jsx
 │   │   ├── DashboardProducts.jsx
@@ -106,12 +127,10 @@ my-app/
 │   │   └── cartReducer.js
 │   ├── services/            # Servicios y APIs
 │   │   └── api.js
-│   ├── mocks/               # Datos mock para desarrollo
-│   │   └── db.js
+├── db.json                  # Base de datos JSON Server
 │   ├── styles/              # Estilos globales
 │   │   └── global.css
 │   ├── utils/               # Utilidades y helpers
-│   │   ├── accessibility.js
 │   │   ├── formatters.js
 │   │   └── validators.js
 │   ├── constants/           # Constantes centralizadas
@@ -131,14 +150,19 @@ my-app/
 
 ### Autenticación
 - **Registro de usuarios** con validación
-- **Inicio de sesión** seguro
-- **Persistencia de sesión** con sessionStorage
+- **Inicio de sesión** seguro con opción "Recordarme"
+- **Persistencia de sesión** con localStorage y sessionStorage
 - **Protección de rutas** para usuarios autenticados
+- **Restauración automática** de sesión al recargar la página
 
 ### Gestión de Productos
-- **Catálogo de productos** con filtros
+- **Catálogo de productos** con filtros avanzados
 - **Búsqueda por nombre** y categoría
-- **Detalles de producto** completos
+- **Paginación** con controles personalizables
+- **Vista en grid y lista** intercambiables
+- **Carrusel de productos** destacados
+- **Productos relacionados** en página de detalle
+- **Detalles de producto** completos con galería de imágenes
 - **Gestión de stock** en tiempo real
 
 ### Carrito de Compras
@@ -148,10 +172,18 @@ my-app/
 - **Resumen de compra**
 
 ### Panel de Administración
-- **Dashboard de productos**
-- **Crear nuevos productos**
-- **Editar productos existentes**
-- **Subida de imágenes**
+- **Dashboard de productos** con gestión completa
+- **Crear nuevos productos** con formulario avanzado
+- **Editar productos existentes** con pre-carga de datos
+- **Subida de imágenes** con preview
+- **Gestión de categorías** integrada
+
+### Interfaz de Usuario
+- **Modo oscuro/claro** con persistencia
+- **Diseño responsive** optimizado para todos los dispositivos
+- **Navegación intuitiva** con breadcrumbs
+- **Notificaciones toast** para feedback del usuario
+- **Loading states** y skeleton loaders
 
 ## 🎨 Componentes Principales
 
@@ -163,9 +195,12 @@ my-app/
 
 ### Productos
 - **ProductCard**: Tarjeta de producto con información básica
-- **ProductDetail**: Vista detallada del producto
+- **ProductListItem**: Vista en lista con detalles extendidos
+- **ProductDetail**: Vista detallada del producto con galería
 - **ProductForm**: Formulario para crear/editar productos
+- **ProductCarousel**: Carrusel de productos destacados
 - **CategoryPill**: Etiqueta de categoría
+- **ViewControls**: Controles de paginación y vista
 
 ### Carrito
 - **CartSummary**: Resumen del carrito
@@ -177,12 +212,18 @@ my-app/
 - **SkeletonLoader**: Placeholder durante la carga
 - **ErrorBoundary**: Manejo de errores
 - **ImageUploader**: Subida de imágenes
+- **ThemeToggle**: Toggle para modo oscuro/claro
+- **Modal**: Sistema de modales reutilizable
+- **Toast**: Sistema de notificaciones
 
 ## 🚀 Scripts Disponibles
 
 ```json
 {
   "dev": "vite",                    // Servidor de desarrollo
+  "dev:full": "concurrently \"npm run server\" \"npm run dev\"", // Frontend + JSON Server
+  "start": "npm run dev:full",      // Comando principal
+  "server": "json-server --watch db.json --port 3001", // JSON Server
   "build": "vite build",            // Build de producción
   "preview": "vite preview",        // Preview del build
   "lint": "eslint ."               // Linting del código
@@ -192,12 +233,18 @@ my-app/
 ## 🔧 Configuración
 
 ### Vite
-- **Puerto**: 3000
+- **Puerto**: 5173
 - **HMR**: Habilitado
 - **Build**: Optimizado para producción
 
+### JSON Server
+- **Puerto**: 3001
+- **Base de datos**: db.json
+- **Endpoints**: /users, /products, /categories
+
 ### Tailwind CSS
 - **Colores personalizados** para branding
+- **Modo oscuro** con clases dark:
 - **Componentes utilitarios** predefinidos
 - **Responsive design** integrado
 
@@ -221,12 +268,17 @@ La aplicación está completamente optimizada para:
 - **Usuario**: `user1@test.com` / `user123`
 
 ### Categorías disponibles
-
 - Electrónicos
 - Ropa
 - Hogar
 - Deportes
 - Libros
+
+### Productos
+- **110 productos** en total
+- **100 productos** del catálogo externo
+- **10 productos** de prueba originales
+- **Imágenes** y descripciones completas
 
 ## 🚀 Deploy
 

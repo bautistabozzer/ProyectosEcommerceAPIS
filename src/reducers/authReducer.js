@@ -4,6 +4,7 @@ export const authInitialState = {
   isAuthenticated: false,
   loading: false,
   error: null,
+  storageType: null, // 'localStorage' or 'sessionStorage'
 }
 export const authReducer = (state, action) => {
   switch (action.type) {
@@ -41,6 +42,7 @@ export const authReducer = (state, action) => {
         user: action.payload.user,
         token: action.payload.token,
         isAuthenticated: true,
+        storageType: action.payload.storageType,
       }
     default:
       return state

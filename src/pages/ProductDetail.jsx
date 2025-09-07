@@ -6,6 +6,7 @@ import { useToast } from "../context/ToastContext"
 import { api } from "../services/api"
 import { formatPrice } from "../utils/formatters"
 import LoadingSpinner from "../components/LoadingSpinner"
+import ProductCard from "../components/ProductCard"
 import { ArrowLeft, ShoppingCart, Package, Star } from "lucide-react"
 const ProductDetail = () => {
   const { id } = useParams()
@@ -13,6 +14,12 @@ const ProductDetail = () => {
   const { addToCart } = useCart()
   const { success, error } = useToast()
   const { data: product, loading, error: fetchError } = useFetch(() => api.getProduct(id), [id])
+  
+  // Fetch related products (same category, excluding current product)
+  const { data: relatedProducts } = useFetch(
+    () => product ? api.getProducts({ categoryId: product.categoryId }) : Promise.resolve([]),
+    [product?.categoryId]
+  )
   const handleAddToCart = () => {
     if (!product) return
     if (product.stock === 0) {
@@ -43,6 +50,11 @@ const ProductDetail = () => {
   }
   const isOutOfStock = product.stock === 0
   const images = product.images || ["/placeholder.svg?height=500&width=500"]
+  
+  // Filter related products (exclude current product and limit to 4)
+  const filteredRelatedProducts = relatedProducts
+    ?.filter(p => p.id !== product.id)
+    ?.slice(0, 4) || []
   return (
     <div className="max-w-6xl mx-auto">
       {/* Breadcrumb */}
@@ -76,7 +88,7 @@ const ProductDetail = () => {
                   key={index}
                   onClick={() => setSelectedImageIndex(index)}
                   className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-colors ${
-                    selectedImageIndex === index ? "border-blue-600" : "border-gray-200 hover:border-gray-300"
+                    selectedImageIndex === index ? "border-blue-600 dark:border-blue-400" : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500"
                   }`}
                 >
                   <img
@@ -92,27 +104,27 @@ const ProductDetail = () => {
         {/* Product Info */}
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{product.name}</h1>
             {/* Rating placeholder */}
             <div className="flex items-center mb-4">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={16} className={`${i < 4 ? "text-yellow-400 fill-current" : "text-gray-300"}`} />
+                  <Star key={i} size={16} className={`${i < 4 ? "text-yellow-400 fill-current" : "text-gray-300 dark:text-gray-600"}`} />
                 ))}
               </div>
-              <span className="ml-2 text-sm text-gray-600">(4.0) • 24 reseñas</span>
+              <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">(4.0) • 24 reseñas</span>
             </div>
           </div>
           {/* Price and Stock */}
-          <div className="border-t border-b border-gray-200 py-6">
+          <div className="border-t border-b border-gray-200 dark:border-gray-600 py-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-3xl font-bold text-blue-600">{formatPrice(product.price)}</span>
-              <span className={`text-lg font-medium ${isOutOfStock ? "text-red-600" : "text-green-600"}`}>
+              <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">{formatPrice(product.price)}</span>
+              <span className={`text-lg font-medium ${isOutOfStock ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}`}>
                 {isOutOfStock ? "Sin stock" : `${product.stock} disponibles`}
               </span>
             </div>
             {/* Stock indicator */}
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div
                 className={`h-2 rounded-full ${
                   product.stock > 10 ? "bg-green-500" : product.stock > 5 ? "bg-yellow-500" : "bg-red-500"
@@ -120,14 +132,14 @@ const ProductDetail = () => {
                 style={{ width: `${Math.min((product.stock / 20) * 100, 100)}%` }}
               ></div>
             </div>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               {product.stock > 10 ? "En stock" : product.stock > 0 ? "Pocas unidades" : "Agotado"}
             </p>
           </div>
           {/* Description */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Descripción</h3>
-            <p className="text-gray-700 leading-relaxed">{product.description}</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Descripción</h3>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{product.description}</p>
           </div>
           {/* Add to Cart */}
           <div className="space-y-4">
@@ -136,39 +148,53 @@ const ProductDetail = () => {
               disabled={isOutOfStock}
               className={`w-full flex items-center justify-center gap-3 py-3 px-6 rounded-lg font-medium text-lg transition-colors ${
                 isOutOfStock
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  ? "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               }`}
             >
               <ShoppingCart size={20} />
               {isOutOfStock ? "Producto Agotado" : "Agregar al Carrito"}
             </button>
             {!isOutOfStock && (
-              <p className="text-sm text-gray-600 text-center">Envío gratis en pedidos superiores a €50</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Envío gratis en pedidos superiores a €50</p>
             )}
           </div>
           {/* Product Details */}
-          <div className="border-t border-gray-200 pt-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Detalles del producto</h3>
+          <div className="border-t border-gray-200 dark:border-gray-600 pt-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Detalles del producto</h3>
             <dl className="space-y-2">
               <div className="flex justify-between">
-                <dt className="text-gray-600">SKU:</dt>
-                <dd className="text-gray-900">#{product.id.toString().padStart(6, "0")}</dd>
+                <dt className="text-gray-600 dark:text-gray-400">SKU:</dt>
+                <dd className="text-gray-900 dark:text-gray-100">#{product.id.toString().padStart(6, "0")}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-gray-600">Disponibilidad:</dt>
-                <dd className={isOutOfStock ? "text-red-600" : "text-green-600"}>
+                <dt className="text-gray-600 dark:text-gray-400">Disponibilidad:</dt>
+                <dd className={isOutOfStock ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}>
                   {isOutOfStock ? "Agotado" : "En stock"}
                 </dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-gray-600">Categoría:</dt>
-                <dd className="text-gray-900">Categoría #{product.categoryId}</dd>
+                <dt className="text-gray-600 dark:text-gray-400">Categoría:</dt>
+                <dd className="text-gray-900 dark:text-gray-100">Categoría #{product.categoryId}</dd>
               </div>
             </dl>
           </div>
         </div>
       </div>
+      
+      {/* Related Products */}
+      {filteredRelatedProducts.length > 0 && (
+        <div className="mt-16">
+          <div className="border-t border-gray-200 dark:border-gray-600 pt-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Productos Relacionados</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {filteredRelatedProducts.map((relatedProduct) => (
+                <ProductCard key={relatedProduct.id} product={relatedProduct} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

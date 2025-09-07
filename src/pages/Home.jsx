@@ -2,15 +2,27 @@ import { useState, useEffect } from "react"
 import { api } from "../services/api"
 import { useFetch } from "../hooks/useFetch"
 import ProductCard from "../components/ProductCard"
+import ProductListItem from "../components/ProductListItem"
 import CategoryPill from "../components/CategoryPill"
 import LoadingSpinner from "../components/LoadingSpinner"
 import EmptyState from "../components/EmptyState"
 import SkeletonLoader from "../components/SkeletonLoader"
-import { Search, Package } from "lucide-react"
+import ProductCarousel from "../components/ProductCarousel"
+import ViewControls from "../components/ViewControls"
+import { Search, Package, ChevronLeft, ChevronRight } from "lucide-react"
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [filteredProducts, setFilteredProducts] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(() => {
+    const saved = localStorage.getItem('productsPerPage')
+    return saved ? Number(saved) : 9
+  })
+  const [viewMode, setViewMode] = useState(() => {
+    const saved = localStorage.getItem('viewMode')
+    return saved || 'grid'
+  })
   // Fetch products and categories
   const {
     data: products,
@@ -29,6 +41,7 @@ const Home = () => {
   useEffect(() => {
     if (products) {
       setFilteredProducts(products)
+      setCurrentPage(1) // Reset to first page when filters change
     }
   }, [products])
   const handleSearch = (e) => {
@@ -40,7 +53,33 @@ const Home = () => {
   const clearFilters = () => {
     setSearchTerm("")
     setSelectedCategory(null)
+    setCurrentPage(1)
   }
+
+  const handleItemsPerPageChange = (newItemsPerPage) => {
+    setProductsPerPage(newItemsPerPage)
+    setCurrentPage(1) // Reset to first page when changing items per page
+    localStorage.setItem('productsPerPage', newItemsPerPage.toString())
+  }
+
+  const handleViewModeChange = (newViewMode) => {
+    setViewMode(newViewMode)
+    localStorage.setItem('viewMode', newViewMode)
+  }
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts?.length / productsPerPage) || 1
+  const startIndex = (currentPage - 1) * productsPerPage
+  const endIndex = startIndex + productsPerPage
+  const currentProducts = filteredProducts?.slice(startIndex, endIndex) || []
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  // Get featured products (first 4 products with stock)
+  const featuredProducts = products?.filter(p => p.stock > 0).slice(0, 4) || []
   if (productsLoading && !products) {
     return (
       <div className="space-y-8">
@@ -96,6 +135,11 @@ const Home = () => {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Catálogo de Productos</h1>
         <p className="text-gray-600 dark:text-gray-300">Descubre nuestros productos organizados por categorías</p>
       </div>
+
+      {/* Featured Products Carousel */}
+      {featuredProducts.length > 0 && !searchTerm && !selectedCategory && (
+        <ProductCarousel products={featuredProducts} title="Productos Destacados" />
+      )}
       {/* Search Bar */}
       <div className="relative max-w-md">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -198,21 +242,90 @@ const Home = () => {
             />
           ) : (
             <>
-              {/* Results count */}
-              <div className="mb-6">
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  {filteredProducts?.length} producto{filteredProducts?.length !== 1 ? "s" : ""} encontrado
-                  {filteredProducts?.length !== 1 ? "s" : ""}
-                  {searchTerm && ` para "${searchTerm}"`}
-                  {selectedCategory && ` en ${categories?.find((c) => c.id === selectedCategory)?.name}`}
-                </p>
-              </div>
-              {/* Products grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredProducts?.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              {/* View Controls */}
+              <ViewControls
+                itemsPerPage={productsPerPage}
+                onItemsPerPageChange={handleItemsPerPageChange}
+                viewMode={viewMode}
+                onViewModeChange={handleViewModeChange}
+                totalItems={filteredProducts?.length || 0}
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
+
+              {/* Products display */}
+              {viewMode === 'grid' ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {currentProducts?.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {currentProducts?.map((product) => (
+                    <ProductListItem key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
+              
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="mt-8 flex items-center justify-center space-x-2">
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    <ChevronLeft size={16} className="mr-1" />
+                    Anterior
+                  </button>
+                  
+                  {/* Page numbers */}
+                  <div className="flex space-x-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                      // Show first page, last page, current page, and pages around current
+                      const shouldShow = 
+                        page === 1 || 
+                        page === totalPages || 
+                        (page >= currentPage - 1 && page <= currentPage + 1)
+                      
+                      if (!shouldShow) {
+                        // Show ellipsis for gaps
+                        if (page === 2 && currentPage > 4) {
+                          return <span key={`ellipsis-${page}`} className="px-3 py-2 text-gray-500">...</span>
+                        }
+                        if (page === totalPages - 1 && currentPage < totalPages - 3) {
+                          return <span key={`ellipsis-${page}`} className="px-3 py-2 text-gray-500">...</span>
+                        }
+                        return null
+                      }
+                      
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={`px-3 py-2 text-sm font-medium rounded-md ${
+                            page === currentPage
+                              ? "text-blue-600 bg-blue-50 border border-blue-300 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-700"
+                              : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    Siguiente
+                    <ChevronRight size={16} className="ml-1" />
+                  </button>
+                </div>
+              )}
             </>
           )}
         </div>

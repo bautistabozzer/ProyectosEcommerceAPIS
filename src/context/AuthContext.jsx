@@ -11,27 +11,89 @@ export const useAuth = () => {
 }
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState)
+  
   // Restore session on app load
   useEffect(() => {
-    const token = sessionStorage.getItem("auth_token")
-    const user = sessionStorage.getItem("auth_user")
-    if (token && user) {
-      dispatch({
-        type: "AUTH_RESTORE",
-        payload: {
-          token,
-          user: JSON.parse(user),
-        },
-      })
+    const restoreSession = () => {
+      try {
+        // Try localStorage first (remember me), then sessionStorage
+        let token = localStorage.getItem("auth_token")
+        let user = localStorage.getItem("auth_user")
+        let storageType = "localStorage"
+        
+        // If no localStorage, try sessionStorage
+        if (!token || !user) {
+          token = sessionStorage.getItem("auth_token")
+          user = sessionStorage.getItem("auth_user")
+          storageType = "sessionStorage"
+        }
+        
+        if (token && user) {
+          try {
+            const userData = JSON.parse(user)
+            
+            // Simple validation - check if user has required fields
+            if (userData && userData.id && userData.email) {
+              // Create a completely new object with explicit properties
+              const userCopy = {
+                id: userData.id,
+                username: userData.username,
+                email: userData.email,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                role: userData.role || 'user'
+              }
+              
+              dispatch({
+                type: "AUTH_RESTORE",
+                payload: {
+                  token: token,
+                  user: userCopy,
+                  storageType: storageType,
+                },
+              })
+            } else {
+              clearAllStorage()
+            }
+          } catch (parseError) {
+            clearAllStorage()
+          }
+        }
+      } catch (error) {
+        clearAllStorage()
+      }
     }
+    
+    const clearAllStorage = () => {
+      localStorage.removeItem("auth_token")
+      localStorage.removeItem("auth_user")
+      sessionStorage.removeItem("auth_token")
+      sessionStorage.removeItem("auth_user")
+    }
+    
+    restoreSession()
   }, [])
-  const login = async (email, password) => {
+  const login = async (email, password, rememberMe = false) => {
     dispatch({ type: "AUTH_START" })
     try {
       const response = await api.login(email, password)
-      // Save to sessionStorage
-      sessionStorage.setItem("auth_token", response.token)
-      sessionStorage.setItem("auth_user", JSON.stringify(response.user))
+      
+      // Choose storage based on rememberMe option
+      const storage = rememberMe ? localStorage : sessionStorage
+      
+      // Save to chosen storage
+      storage.setItem("auth_token", response.token)
+      storage.setItem("auth_user", JSON.stringify(response.user))
+      
+      // Clear the other storage to avoid conflicts
+      if (rememberMe) {
+        sessionStorage.removeItem("auth_token")
+        sessionStorage.removeItem("auth_user")
+      } else {
+        localStorage.removeItem("auth_token")
+        localStorage.removeItem("auth_user")
+      }
+      
       dispatch({
         type: "AUTH_SUCCESS",
         payload: response,
@@ -45,13 +107,27 @@ export const AuthProvider = ({ children }) => {
       throw error
     }
   }
-  const register = async (userData) => {
+  const register = async (userData, rememberMe = false) => {
     dispatch({ type: "AUTH_START" })
     try {
       const response = await api.register(userData)
-      // Save to sessionStorage
-      sessionStorage.setItem("auth_token", response.token)
-      sessionStorage.setItem("auth_user", JSON.stringify(response.user))
+      
+      // Choose storage based on rememberMe option
+      const storage = rememberMe ? localStorage : sessionStorage
+      
+      // Save to chosen storage
+      storage.setItem("auth_token", response.token)
+      storage.setItem("auth_user", JSON.stringify(response.user))
+      
+      // Clear the other storage to avoid conflicts
+      if (rememberMe) {
+        sessionStorage.removeItem("auth_token")
+        sessionStorage.removeItem("auth_user")
+      } else {
+        localStorage.removeItem("auth_token")
+        localStorage.removeItem("auth_user")
+      }
+      
       dispatch({
         type: "AUTH_SUCCESS",
         payload: response,
@@ -66,6 +142,9 @@ export const AuthProvider = ({ children }) => {
     }
   }
   const logout = () => {
+    // Clear both storages to ensure complete logout
+    localStorage.removeItem("auth_token")
+    localStorage.removeItem("auth_user")
     sessionStorage.removeItem("auth_token")
     sessionStorage.removeItem("auth_user")
     dispatch({ type: "AUTH_LOGOUT" })

@@ -15,6 +15,7 @@ const Login = () => {
   })
   const [errors, setErrors] = useState({})
   const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
   const { login, register, loading } = useAuth()
   const { error, success } = useToast()
   const navigate = useNavigate()
@@ -76,10 +77,10 @@ const Login = () => {
     }
     try {
       if (isLoginMode) {
-        await login(formData.email, formData.password)
+        await login(formData.email, formData.password, rememberMe)
         navigate("/")
       } else {
-        await register(formData)
+        await register(formData, rememberMe)
         success("Cuenta creada exitosamente")
         navigate("/")
       }
@@ -229,6 +230,23 @@ const Login = () => {
               </div>
               {errors.password && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>}
             </div>
+
+            {/* Remember Me checkbox - only for login mode */}
+            {isLoginMode && (
+              <div className="flex items-center">
+                <input
+                  id="rememberMe"
+                  name="rememberMe"
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded"
+                />
+                <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                  Recordarme
+                </label>
+              </div>
+            )}
 
             {/* First Name field - only for register mode */}
             {!isLoginMode && (
