@@ -5,11 +5,24 @@ export const formatPrice = (price) => {
   }).format(price)
 }
 export const formatDate = (dateString) => {
+  // Validar que dateString existe y no es null/undefined
+  if (!dateString) {
+    return "Fecha no disponible"
+  }
+  
+  // Intentar crear la fecha
+  const date = new Date(dateString)
+  
+  // Verificar si la fecha es válida
+  if (isNaN(date.getTime())) {
+    return "Fecha inválida"
+  }
+  
   return new Intl.DateTimeFormat("es-ES", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(new Date(dateString))
+  }).format(date)
 }
 export const truncateText = (text, maxLength = 100) => {
   if (text.length <= maxLength) return text

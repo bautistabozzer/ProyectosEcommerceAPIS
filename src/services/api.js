@@ -123,9 +123,21 @@ export const api = {
   
   async updateProduct(id, productData) {
     try {
+      // Obtener el producto actual para preservar createdAt
+      const currentProduct = await request(`/products/${id}`)
+      
+      const updatedProduct = {
+        ...currentProduct,
+        ...productData,
+        // Preservar createdAt original
+        createdAt: currentProduct.createdAt,
+        // Actualizar updatedAt si existe
+        updatedAt: new Date().toISOString(),
+      }
+      
       return await request(`/products/${id}`, {
         method: 'PUT',
-        body: JSON.stringify(productData),
+        body: JSON.stringify(updatedProduct),
       })
     } catch (error) {
       if (error.message.includes('404')) {

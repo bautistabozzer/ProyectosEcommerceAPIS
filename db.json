@@ -212,13 +212,14 @@
       "name": "Auriculares Inalámbricos WavePods",
       "description": "Auriculares Inalámbricos WavePods. Producto electrónico de alta calidad con excelente relación rendimiento/consumo. Ideal para uso diario y profesional.",
       "price": 849.61,
-      "stock": 1,
+      "stock": 0,
       "images": [
         "https://picsum.photos/seed/product3/800/600"
       ],
       "categoryId": 1,
-      "ownerUserId": 1,
-      "createdAt": "2024-03-26T05:51:13Z"
+      "ownerUserId": "1",
+      "createdAt": "2024-03-26T05:51:13Z",
+      "updatedAt": "2025-09-07T22:19:19.604Z"
     },
     {
       "id": "14",
@@ -641,13 +642,14 @@
       "name": "Aspiradora Ciclónica Pro",
       "description": "Aspiradora Ciclónica Pro. Elemento para el hogar con diseño moderno y funcional, fácil de mantener y duradero.",
       "price": 137.4,
-      "stock": 1,
+      "stock": 16,
       "images": [
         "https://picsum.photos/seed/product46/800/600"
       ],
       "categoryId": 3,
-      "ownerUserId": 1,
-      "createdAt": "2024-08-16T20:39:33Z"
+      "ownerUserId": "1",
+      "createdAt": "2024-08-16T20:39:33Z",
+      "updatedAt": "2025-09-07T22:18:38.860Z"
     },
     {
       "id": "47",
@@ -706,13 +708,14 @@
       "name": "Almohadas Viscoelásticas x2",
       "description": "Almohadas Viscoelásticas x2. Elemento para el hogar con diseño moderno y funcional, fácil de mantener y duradero.",
       "price": 1571.38,
-      "stock": 26,
+      "stock": 30,
       "images": [
         "https://picsum.photos/seed/product51/800/600"
       ],
       "categoryId": 3,
-      "ownerUserId": 1,
-      "createdAt": "2024-02-06T23:10:48Z"
+      "ownerUserId": "1",
+      "createdAt": "2024-02-06T23:10:48Z",
+      "updatedAt": "2025-09-07T22:15:52.986Z"
     },
     {
       "id": "52",
@@ -1114,8 +1117,9 @@
         "https://picsum.photos/seed/product82/800/600"
       ],
       "categoryId": 5,
-      "ownerUserId": 1,
-      "createdAt": "2024-12-11T20:43:24Z"
+      "ownerUserId": "1",
+      "createdAt": "2024-12-11T20:43:24Z",
+      "updatedAt": "2025-09-07T22:19:13.206Z"
     },
     {
       "id": "83",
@@ -1174,13 +1178,14 @@
       "name": "Arquitectura de Computadoras",
       "description": "Arquitectura de Computadoras. Libro recomendado, edición en español, ideal para estudiantes y entusiastas. Tapa blanda.",
       "price": 852.91,
-      "stock": 17,
+      "stock": 29,
       "images": [
         "https://picsum.photos/seed/product87/800/600"
       ],
       "categoryId": 5,
-      "ownerUserId": 1,
-      "createdAt": "2024-01-02T17:02:53Z"
+      "ownerUserId": "1",
+      "createdAt": "2024-01-02T17:02:53Z",
+      "updatedAt": "2025-09-07T22:18:29.918Z"
     },
     {
       "id": "88",
