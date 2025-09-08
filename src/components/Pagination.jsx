@@ -74,7 +74,7 @@ const Pagination = ({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           title="Página anterior"
         >
           <ChevronLeft size={18} />
@@ -99,7 +99,7 @@ const Pagination = ({
               <button
                 key={page}
                 onClick={() => onPageChange(page)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isCurrentPage
                     ? 'bg-blue-600 text-white border border-blue-600'
                     : 'border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -115,7 +115,7 @@ const Pagination = ({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           title="Página siguiente"
         >
           <ChevronRight size={18} />

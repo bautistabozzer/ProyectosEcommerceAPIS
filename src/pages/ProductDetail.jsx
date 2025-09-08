@@ -87,7 +87,7 @@ const ProductDetail = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImageIndex(index)}
-                  className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-colors ${
+                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
                     selectedImageIndex === index ? "border-blue-600 dark:border-blue-400" : "border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500"
                   }`}
                 >

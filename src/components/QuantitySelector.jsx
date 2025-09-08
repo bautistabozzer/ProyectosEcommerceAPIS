@@ -29,7 +29,7 @@ const QuantitySelector = ({ quantity = 1, min = 1, max = 99, onChange, disabled 
     lg: "p-3",
   }
   return (
-    <div className={`flex items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 ${disabled ? "opacity-50" : ""}`}>
+    <div className={`flex items-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 ${disabled ? "opacity-50" : ""}`}>
       <button
         onClick={handleDecrease}
         disabled={disabled || value <= min}

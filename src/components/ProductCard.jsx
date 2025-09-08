@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
   }
   const isOutOfStock = product.stock === 0
   return (
-    <div className="card overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+    <div className="card overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
       <Link to={`/product/${product.id}`} className="block">
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-100 dark:bg-gray-700">
@@ -57,7 +57,7 @@ const ProductCard = ({ product }) => {
         <button
           onClick={handleAddToCart}
           disabled={isOutOfStock}
-          className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md font-medium transition-colors ${
+          className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg font-medium transition-colors ${
             isOutOfStock
               ? "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
               : "bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"

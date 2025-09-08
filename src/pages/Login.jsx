@@ -122,7 +122,7 @@ const Login = () => {
         <div className="flex rounded-lg bg-gray-100 dark:bg-gray-800 p-1">
           <button
             onClick={() => setIsLoginMode(true)}
-            className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               isLoginMode
                 ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
@@ -133,7 +133,7 @@ const Login = () => {
           </button>
           <button
             onClick={() => setIsLoginMode(false)}
-            className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               !isLoginMode
                 ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
@@ -240,7 +240,7 @@ const Login = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded-lg"
                 />
                 <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                   Recordarme
@@ -299,7 +299,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <div className="flex items-center">
@@ -314,7 +314,7 @@ const Login = () => {
 
           {/* Demo credentials - only show in login mode */}
           {isLoginMode && (
-            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-md">
+            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
               <h3 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">Credenciales de prueba:</h3>
               <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
                 <p>

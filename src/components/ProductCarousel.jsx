@@ -42,14 +42,14 @@ const ProductCarousel = ({ products, title = "Productos Destacados" }) => {
         <div className="flex items-center space-x-2">
           <button
             onClick={goToPrevious}
-            className="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-600"
+            className="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-600"
             aria-label="Anterior"
           >
             <ChevronLeft size={20} className="text-gray-600 dark:text-gray-300" />
           </button>
           <button
             onClick={goToNext}
-            className="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-600"
+            className="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-600"
             aria-label="Siguiente"
           >
             <ChevronRight size={20} className="text-gray-600 dark:text-gray-300" />
@@ -78,7 +78,7 @@ const ProductCarousel = ({ products, title = "Productos Destacados" }) => {
                         />
                         {product.stock === 0 && (
                           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-                            <span className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <span className="bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-medium">
                               Sin Stock
                             </span>
                           </div>
@@ -135,7 +135,7 @@ const ProductCarousel = ({ products, title = "Productos Destacados" }) => {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
+              className={`w-3 h-3 rounded-lg transition-colors ${
                 index === currentIndex
                   ? "bg-blue-600"
                   : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"

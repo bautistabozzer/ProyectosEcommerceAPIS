@@ -30,7 +30,7 @@ const ViewControls = ({
               id="items-per-page"
               value={itemsPerPage}
               onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-              className="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               {itemsPerPageOptions.map((option) => (
                 <option key={option} value={option}>
@@ -43,7 +43,7 @@ const ViewControls = ({
         </div>
 
         {/* View mode toggle */}
-        <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-md overflow-hidden">
+        <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
           <button
             onClick={() => onViewModeChange('grid')}
             className={`p-2 transition-colors ${

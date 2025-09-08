@@ -189,7 +189,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
           <img
             src={item.images?.[0] || "/placeholder.svg?height=80&width=80"}
             alt={item.name}
-            className="w-20 h-20 object-cover rounded-md"
+            className="w-20 h-20 object-cover rounded-lg"
           />
         </div>
         {/* Product Info */}
@@ -202,18 +202,18 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
         </div>
         {/* Quantity Controls */}
         <div className="flex items-center space-x-3">
-          <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800">
+          <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800">
             <button
               onClick={() => onQuantityChange(item.id, item.quantity - 1)}
-              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-white"
+              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-white rounded-lg"
               aria-label="Disminuir cantidad"
             >
               <Minus size={16} />
             </button>
-            <span className="px-3 py-1 text-center min-w-12 text-gray-900 dark:text-white">{item.quantity}</span>
+            <span className="px-3 py-1 text-center min-w-12 text-gray-900 dark:text-white rounded-lg">{item.quantity}</span>
             <button
               onClick={() => onQuantityChange(item.id, item.quantity + 1)}
-              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-white"
+              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-white rounded-lg"
               aria-label="Aumentar cantidad"
             >
               <Plus size={16} />
@@ -222,7 +222,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
           {/* Remove Button */}
           <button
             onClick={() => onRemove(item.id, item.name)}
-            className="p-2 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+            className="p-2 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
             aria-label="Eliminar producto"
           >
             <Trash2 size={18} />

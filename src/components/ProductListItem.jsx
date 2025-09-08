@@ -24,7 +24,7 @@ const ProductListItem = ({ product }) => {
   const images = product.images || ["/placeholder.svg?height=200&width=200"]
 
   return (
-    <div className="card p-6 hover:shadow-lg transition-shadow">
+    <div className="card p-6 hover:shadow-lg transition-shadow rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
       <div className="flex items-center space-x-6">
         {/* Product Image */}
         <div className="flex-shrink-0">
@@ -37,7 +37,7 @@ const ProductListItem = ({ product }) => {
               />
               {isOutOfStock && (
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <span className="bg-red-600 text-white px-2 py-1 rounded text-xs font-medium">
+                  <span className="bg-red-600 text-white px-2 py-1 rounded-lg text-xs font-medium">
                     Sin Stock
                   </span>
                 </div>

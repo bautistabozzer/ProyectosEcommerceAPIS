@@ -53,7 +53,7 @@ const ImageUploader = ({ images = [], onChange, maxImages = 5 }) => {
               <img
                 src={image || "/placeholder.svg"}
                 alt={`Preview ${index + 1}`}
-                className="w-full h-24 object-cover rounded-md border border-gray-200"
+                className="w-full h-24 object-cover rounded-lg border border-gray-200"
               />
               <button
                 type="button"
@@ -63,7 +63,7 @@ const ImageUploader = ({ images = [], onChange, maxImages = 5 }) => {
                 <X size={14} />
               </button>
               {index === 0 && (
-                <div className="absolute bottom-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                <div className="absolute bottom-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-lg">
                   Principal
                 </div>
               )}

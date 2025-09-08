@@ -6,7 +6,7 @@ const CartSummary = ({ showDetails = false }) => {
     return null
   }
   return (
-    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
       <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Resumen del carrito</h3>
       {showDetails && (
         <div className="space-y-2 mb-4">

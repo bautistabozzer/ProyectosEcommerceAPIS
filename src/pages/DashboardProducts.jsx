@@ -93,7 +93,7 @@ const DashboardProducts = () => {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Mis Productos</h1>
           <p className="text-gray-600 dark:text-gray-300 mt-1">Gestiona tu inventario de productos</p>
         </div>
-          <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
+          <div className="h-10 bg-gray-200 rounded-lg w-32 animate-pulse"></div>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="relative max-w-md">
@@ -171,7 +171,7 @@ const DashboardProducts = () => {
               id="items-per-page"
               value={itemsPerPage}
               onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-              className="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               {[3, 6, 9, 12, 18, 24].map((option) => (
                 <option key={option} value={option}>
@@ -233,7 +233,7 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
           <img
             src={product.images?.[0] || "/placeholder.svg?height=80&width=80"}
             alt={product.name}
-            className="w-20 h-20 object-cover rounded-md"
+            className="w-20 h-20 object-cover rounded-lg"
           />
         </div>
         {/* Product Info */}
@@ -254,14 +254,14 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
             <div className="flex items-center space-x-2">
               <Link
                 to={`/product/${product.id}`}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                 title="Ver producto"
               >
                 <Eye size={18} />
               </Link>
               <Link
                 to={`/dashboard/products/${product.id}/edit`}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                 title="Editar producto"
               >
                 <Edit size={18} />
@@ -269,7 +269,7 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
               <button
                 onClick={() => onDelete(product.id, product.name)}
                 disabled={isDeleting}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors disabled:opacity-50"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-50"
                 title="Eliminar producto"
               >
                 {isDeleting ? <LoadingSpinner size="sm" /> : <Trash2 size={18} />}
@@ -280,7 +280,7 @@ const ProductRow = ({ product, onDelete, isDeleting }) => {
       </div>
       {/* Stock Warning */}
       {product.stock <= 5 && product.stock > 0 && (
-        <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-md">
+        <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">⚠️ Stock bajo: Solo quedan {product.stock} unidades</p>
         </div>
       )}

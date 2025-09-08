@@ -103,10 +103,10 @@ const Home = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <div className="card p-6">
-              <div className="h-6 bg-gray-200 rounded w-1/2 mb-4 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded-lg w-1/2 mb-4 animate-pulse"></div>
               <div className="space-y-2">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="h-8 bg-gray-200 rounded animate-pulse"></div>
+                  <div key={i} className="h-8 bg-gray-200 rounded-lg animate-pulse"></div>
                 ))}
               </div>
             </div>
@@ -168,7 +168,7 @@ const Home = () => {
               <div className="space-y-2">
                 <button
                   onClick={clearFilters}
-                  className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     !selectedCategory 
                       ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium" 
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -274,7 +274,7 @@ const Home = () => {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     <ChevronLeft size={16} className="mr-1" />
                     Anterior
@@ -292,10 +292,10 @@ const Home = () => {
                       if (!shouldShow) {
                         // Show ellipsis for gaps
                         if (page === 2 && currentPage > 4) {
-                          return <span key={`ellipsis-${page}`} className="px-3 py-2 text-gray-500">...</span>
+                          return <span key={`ellipsis-${page}`} className="px-3 py-2 text-gray-500 rounded-lg">...</span>
                         }
                         if (page === totalPages - 1 && currentPage < totalPages - 3) {
-                          return <span key={`ellipsis-${page}`} className="px-3 py-2 text-gray-500">...</span>
+                          return <span key={`ellipsis-${page}`} className="px-3 py-2 text-gray-500 rounded-lg">...</span>
                         }
                         return null
                       }
@@ -304,7 +304,7 @@ const Home = () => {
                         <button
                           key={page}
                           onClick={() => handlePageChange(page)}
-                          className={`px-3 py-2 text-sm font-medium rounded-md ${
+                          className={`px-3 py-2 text-sm font-medium rounded-lg ${
                             page === currentPage
                               ? "text-blue-600 bg-blue-50 border border-blue-300 dark:bg-blue-900 dark:text-blue-200 dark:border-blue-700"
                               : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
@@ -319,7 +319,7 @@ const Home = () => {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     Siguiente
                     <ChevronRight size={16} className="ml-1" />

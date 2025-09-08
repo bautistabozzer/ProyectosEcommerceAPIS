@@ -50,7 +50,7 @@ class ErrorBoundary extends React.Component {
                 <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
                   Detalles del error (desarrollo)
                 </summary>
-                <div className="mt-2 p-4 bg-red-50 border border-red-200 rounded-md text-xs text-red-800 overflow-auto">
+                <div className="mt-2 p-4 bg-red-50 border border-red-200 rounded-lg text-xs text-red-800 overflow-auto">
                   <pre>{this.state.error && this.state.error.toString()}</pre>
                   <pre>{this.state.errorInfo.componentStack}</pre>
                 </div>
