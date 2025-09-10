@@ -16,7 +16,7 @@
 # next.js
 /.next/
 /out/
-/tpo-commits/
+#/tpo-commits/
 
 # production
 /build
